@@ -36,7 +36,7 @@ body{
     font-weight: bold;
     color: white;
 }
-.header button{
+button{
     padding:5px 22px;
     appearance: none;
     font-weight: bold;
@@ -45,7 +45,7 @@ body{
     border-radius: 8px;
     transition: 150ms ease-in;
 }
-.header button:hover{
+button:hover{
     cursor: pointer;
     background-color: var(--300);
     color: white;
@@ -58,8 +58,7 @@ i{
 }
 .main-container{
     display: grid;
-    grid-template-columns: repeat(3,400px);
-    grid-template-rows: repeat(3,180px);
+    grid-template: repeat(3,180px)/repeat(3,400px);
     flex: 1;
     justify-content: center;
     gap:42px;
@@ -113,8 +112,6 @@ i{
     border-radius: 5px;
 }
 label{
-    display: flex;
-    flex-direction: row-reverse;
     font-size: 1.5em;
 }
 label > input{
