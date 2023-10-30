@@ -23,6 +23,7 @@ body{
     display: flex;
     flex-direction: column;
     height: 100vh;
+    margin-bottom: 18px;
 }
 .header{
     display: flex;
@@ -123,3 +124,21 @@ label > input{
 label{
     font-size: 20px;
 }
+.footer{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap:10px;
+    align-items: center;
+}
+.footer img{
+    width:28px;
+}
+.footer a{
+    text-decoration: none;
+    font-size: 20px;
+    transition: 100ms ease-in;
+    font-weight: bold;
+
+}
+.footer:hover> a {color: var(--400);} 
