@@ -1,3 +1,8 @@
 let library=[]
-let form=document.querySelector('form')
-form.addEventListener('submit',()=> event.preventDefault())
+function Book(title,author,pages,read){
+    this.title=title
+    this.author=author
+    this.pages=pages
+    this.read=read
+    this.id=library.length
+}
