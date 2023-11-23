@@ -53,28 +53,39 @@ button:hover{
 i{
     font-size: 1.35em;
     transition: 100ms ease-in;
-    margin-left: 3px;
     padding: 5px;
 }
-.main-container{
+.book-grid{
     display: grid;
-    grid-template: repeat(3,180px)/repeat(3,400px);
-    flex: 1;
+    grid-template: repeat(3,180px)/repeat(3,400px); 
+    justify-items: center;
     justify-content: center;
-    gap:42px;
-    padding:40px;
-    z-index: 1;
+    gap:35px;
+    z-index: 2;
+    padding:40px 40px;
+    grid-auto-rows: repeat(autofit(),180px); 
+    /* position: relative; */
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(325px, 1fr)); */
+    /* align-items: center; */
+    /* justify-items: center; */
+    /* gap: 2rem; */
+    /* width: 100%; */
+    /* width: min(100%, 1280px); */
+    /* padding: 5vh 1rem; */
 }
 .card{
     width:400px;
-    height: 180px;
+    justify-self: center;
+    height: 160px;
     background-color: white;
-    transition: 0.1s ease-in;
+    transition: 0.15s ease-in;
     position: relative;
     display: flex;
     flex-direction: column;
     padding:25px;
     border-radius: 10px;
+    box-shadow:2px 2px 5px grey ;
     border-left:13px solid var(--900) ;
 }
 .card h2{
@@ -92,7 +103,6 @@ i{
 }
 .card:hover{
     scale: 1.05;
-    cursor: pointer;
 }
 .card:hover::before{
     opacity: 1;
@@ -101,11 +111,14 @@ i{
     display: flex;
     justify-content: space-between;
 }
+.icons-c>*:hover{
+    cursor: pointer;
+}
 .card span{
-    margin-bottom: 30px;
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--300);
+    font-size: 10px;
+    margin-top: 3px;
+    font-weight: bold;
+    color: var(--600);
 }
 .card i:hover{
     color: white;
@@ -121,6 +134,12 @@ label > input{
 }
 label{
     font-size: 20px;
+}
+.check{
+    margin-right: 5px;
+}
+.checkG,.checkG>*{
+    cursor: pointer;
 }
 .footer{
     display: flex;
@@ -148,7 +167,7 @@ label{
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 1;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -190,4 +209,12 @@ form button{
     width: 40%;
     padding: 8px 15px;
     margin-left: auto;
+}
+p{
+    margin: 18px 0;
+}
+.card p{
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--400);
 }
