@@ -107,12 +107,9 @@ i{
 .card:hover::before{
     opacity: 1;
 }
-.card .icons-c{
+.card .cardFooter{
     display: flex;
     justify-content: space-between;
-}
-.icons-c>*:hover{
-    cursor: pointer;
 }
 .card span{
     font-size: 10px;
@@ -124,22 +121,20 @@ i{
     color: white;
     background-color: var(--800);
     border-radius: 5px;
+    cursor: pointer;
 }
-label{
-    font-size: 1.5em;
-}
-label > input{
-    margin-right:10px;
-    width: 20px;
-}
+
 label{
     font-size: 20px;
 }
-.check{
+.card input{
     margin-right: 5px;
 }
-.checkG,.checkG>*{
+.readContainer:hover, .readContainer > *{
     cursor: pointer;
+}
+.readContainer:hover > label{
+    color: var(--900);
 }
 .footer{
     display: flex;
