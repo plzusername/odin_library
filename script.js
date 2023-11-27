@@ -1,5 +1,7 @@
+document.addEventListener(('DOMContentLoaded'),  ()=> {
 let gridContainer=document.querySelector('.book-grid')
 let Library=[]
+let removeButton=document.querySelector('.card')
 function Book(title,author,pages,read){
   this.title=title
   this.author=author
@@ -13,11 +15,18 @@ function Book(title,author,pages,read){
   this.pagesE=document.createElement('p')
   this.cardFooter=document.createElement('div')
   this.readContainer=document.createElement('div')
-  this.readOrNot=document.createElement('label');this.readOrNot.setAttribute('for',`${this.id}`)
-  this.readCheckInput=document.createElement('input');readCheckInput.setAttribute('type','checkbox');this.readCheckInput.setAttribute('id',`${this.id}`)
+  this.readOrNot=document.createElement('label');
+  this.readOrNot.setAttribute('for',`${this.id}`)
+  this.readCheckInput=document.createElement('input');
+  this.readCheckInput.setAttribute('type','checkbox');
+  this.readCheckInput.setAttribute('class','checkbox');
+  this.readCheckInput.setAttribute('id',`${this.id}`)
   this.icons_container=document.createElement('div')
-  this.deleteIcon=document.createElement('i');deleteIcon.setAttribute('class','fa-solid fa-trash')
-  this.editIcon=document.createElement('i');editIcon.setAttribute('class','fa-pen-to-square fa-solid')
+  this.deleteIcon=document.createElement('i');
+  this.deleteIcon.classList.add('fa-solid', 'fa-trash');
+  this.deleteIcon.setAttribute('id', 'remove');
+  this.editIcon=document.createElement('i');
+  this.editIcon.classList.add('fa-pen-to-square', 'fa-solid')
   
   this.titleEtext=document.createTextNode(`${title}`)
   this.authorEtext=document.createTextNode(`${author}`)
@@ -40,10 +49,38 @@ function Book(title,author,pages,read){
       this.icons_container.appendChild(this.deleteIcon)
       this.icons_container.appendChild(this.editIcon)
 
-  this.card.setAttribute('class','card')
-  this.cardFooter.setAttribute('class','cardFooter')
-  this.readContainer.setAttribute('class','readContainer')
+  this.card.classList.add('card')
+  this.cardFooter.classList.add('cardFooter')
+  this.readContainer.classList.add('readContainer')
+  if (read){
+    this.readCheckInput.setAttribute('checked', `${this.read}`);
+  }
 
   gridContainer.appendChild(this.card)
+
+  this.changeReadStatus=function(){
+    this.readOrNot.textContent=this.readCheckInput.checked ? 'Read' : 'Unread'
+  }
+  this.readCheckInput.addEventListener('change',()=>{
+    this.changeReadStatus()
+  })
+  return this
 }
-Library.push(Book('How to make it', "Suasage's", 97, 'Read' ))
+Library.push(Book('How to make it', "Suasage's", 97, false ))
+
+Library.push(Book('How to make it', "Suasage's", 97, false ))
+
+Library.push(Book('How to make it', "Suasage's", 97, true ))
+
+Library.push(Book('How to make it', "Suasage's", 97, false ))
+
+Library.push(Book('How to make it', "'s", 97, false ))
+let readInputs=document.querySelectorAll('.checkbox')
+function handleCheckboxChange(event) {
+  const checkbox = event.target;
+  const book = Library.find(book => book.id === parseInt(checkbox.id));
+  book.changeReadStatus();
+}
+
+gridContainer.addEventListener('change', handleCheckboxChange);
+})

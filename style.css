@@ -87,6 +87,7 @@ i{
     border-radius: 10px;
     box-shadow:2px 2px 5px grey ;
     border-left:13px solid var(--900) ;
+    height: 100%;
 }
 .card h2{
     font-weight: bold;
@@ -127,6 +128,10 @@ i{
 label{
     font-size: 20px;
 }
+.card label{
+    font-weight:700;
+    transition: 160ms ease-in-out;
+}
 .card input{
     margin-right: 5px;
 }
@@ -134,7 +139,7 @@ label{
     cursor: pointer;
 }
 .readContainer:hover > label{
-    color: var(--900);
+    color: var(--600);
 }
 .footer{
     display: flex;
