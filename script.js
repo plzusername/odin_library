@@ -23,8 +23,8 @@ function Book(title,author,pages,read){
   this.readCheckInput.setAttribute('id',`${this.id}`)
   this.icons_container=document.createElement('div')
   this.deleteIcon=document.createElement('i');
+  this.deleteIcon.setAttribute('id',`${this.id}`)
   this.deleteIcon.classList.add('fa-solid', 'fa-trash');
-  this.deleteIcon.setAttribute('id', 'remove');
   this.editIcon=document.createElement('i');
   this.editIcon.classList.add('fa-pen-to-square', 'fa-solid')
   
@@ -61,19 +61,29 @@ function Book(title,author,pages,read){
   this.changeReadStatus=function(){
     this.readOrNot.textContent=this.readCheckInput.checked ? 'Read' : 'Unread'
   }
+  this.deleteBook = function () {
+    this.card.remove()
+  }
   this.changeReadStatus()
 
   return this
 }
-for (let i=0;i<6;i++){
+for (let i=0;i<10;i++){
   Library.push(new Book('How to make work', "sausage", i, i%2==0 ))
 }
 let readInputs=document.querySelectorAll('.checkbox')
+let deleteButtons=document.querySelectorAll('.fa-trash')
 function handleCheckboxChange(event) {
-  const checkbox = event.target;
-  const book = Library.find(book => book.id === parseInt(checkbox.id));
-  book.changeReadStatus();
+  const checkbox = event.target
+  const book = Library.find(book => book.id === parseInt(checkbox.id))
+  book.changeReadStatus()
 }
-
-gridContainer.addEventListener('change', handleCheckboxChange);
+function deleteCard(event){
+  const deleteButton = event.target
+  const book = Library.find(book => book.id === parseInt(deleteButton.id))
+  book.deleteBook()
+  Library.splice(Library.indexOf(book),1)
+}
+readInputs.forEach(check => check.addEventListener('change', handleCheckboxChange))
+deleteButtons.forEach(remButton => remButton.addEventListener('click', deleteCard))
 })
