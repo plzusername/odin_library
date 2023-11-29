@@ -61,20 +61,13 @@ function Book(title,author,pages,read){
   this.changeReadStatus=function(){
     this.readOrNot.textContent=this.readCheckInput.checked ? 'Read' : 'Unread'
   }
-  this.readCheckInput.addEventListener('change',()=>{
-    this.changeReadStatus()
-  })
+  this.changeReadStatus()
+
   return this
 }
-Library.push(Book('How to make it', "Suasage's", 97, false ))
-
-Library.push(Book('How to make it', "Suasage's", 97, false ))
-
-Library.push(Book('How to make it', "Suasage's", 97, true ))
-
-Library.push(Book('How to make it', "Suasage's", 97, false ))
-
-Library.push(Book('How to make it', "'s", 97, false ))
+for (let i=0;i<6;i++){
+  Library.push(new Book('How to make work', "sausage", i, i%2==0 ))
+}
 let readInputs=document.querySelectorAll('.checkbox')
 function handleCheckboxChange(event) {
   const checkbox = event.target;
