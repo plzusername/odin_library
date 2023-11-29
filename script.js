@@ -2,6 +2,15 @@ document.addEventListener(('DOMContentLoaded'),  ()=> {
 let gridContainer=document.querySelector('.book-grid')
 let Library=[]
 let removeButton=document.querySelector('.card')
+let makeBookButton=document.querySelector('.add-book')
+let form=document.querySelector('.modal-container')
+let closeFormButton=document.querySelector('.fa-xmark')
+makeBookButton.addEventListener('click',()=>{
+  form.classList.add('shown')
+})
+closeFormButton.addEventListener('click',()=>{
+  form.classList.remove('shown')
+})
 function Book(title,author,pages,read){
   this.title=title
   this.author=author
@@ -63,6 +72,9 @@ function Book(title,author,pages,read){
   }
   this.deleteBook = function () {
     this.card.remove()
+  }
+  this.addNewBook=function(){
+
   }
   this.changeReadStatus()
 
