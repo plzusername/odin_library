@@ -22,8 +22,8 @@ body{
     font-size: 15px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    margin-bottom: 18px;
+    /* height: 100vh; */
+    /* margin-bottom: -11108px; */
 }
 .header{
     display: flex;
@@ -161,7 +161,7 @@ label{
 .footer:hover> a {color: var(--400);} 
 .modal-container{
     opacity: 0;
-    transition: 150ms ease-in;
+    transition: 150ms ease-in-out;
     position: absolute;
     width:450px;
     left: 50%;
@@ -220,4 +220,15 @@ p{
     font-size: 12px;
     font-weight: bold;
     color: var(--400);
+}
+.overlay{
+    transition: 150ms ease-in-out;
+}
+.overlay.visible{
+    width: 100%;
+    opacity: 0.6;
+    height: 100%;
+    background-color: black;
+    position: fixed;
+    z-index: 2;
 }

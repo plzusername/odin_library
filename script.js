@@ -3,14 +3,15 @@ let gridContainer=document.querySelector('.book-grid')
 let Library=[]
 let removeButton=document.querySelector('.card')
 let makeBookButton=document.querySelector('.add-book')
-let form=document.querySelector('.modal-container')
+let modal=document.querySelector('.modal-container')
 let closeFormButton=document.querySelector('.fa-xmark')
-makeBookButton.addEventListener('click',()=>{
-  form.classList.add('shown')
-})
-closeFormButton.addEventListener('click',()=>{
-  form.classList.remove('shown')
-})
+let overlay=document.querySelector('.overlay')
+let form=document.querySelector('form')
+let titleS=document.getElementById('title')
+let authorS=document.getElementById('Author')
+let pagesS=document.getElementById('page-count')
+let readQuestion=document.getElementById('read-or-not')
+
 function Book(title,author,pages,read){
   this.title=title
   this.author=author
@@ -80,22 +81,48 @@ function Book(title,author,pages,read){
 
   return this
 }
-for (let i=0;i<10;i++){
+for (let i=0;i<25;i++){
   Library.push(new Book('How to make work', "sausage", i, i%2==0 ))
 }
-let readInputs=document.querySelectorAll('.checkbox')
-let deleteButtons=document.querySelectorAll('.fa-trash')
 function handleCheckboxChange(event) {
   const checkbox = event.target
+  console.log(checkbox)
   const book = Library.find(book => book.id === parseInt(checkbox.id))
   book.changeReadStatus()
 }
 function deleteCard(event){
   const deleteButton = event.target
-  const book = Library.find(book => book.id === parseInt(deleteButton.id))
-  book.deleteBook()
-  Library.splice(Library.indexOf(book),1)
+  if (deleteButton.classList.contains('fa-trash')){
+    const book = Library.find(book => book.id === parseInt(deleteButton.id))
+    book.deleteBook()
+    Library.splice(Library.indexOf(book),1)
+    Library.forEach((item, i)=>{
+      item.id=i
+      item.deleteIcon.setAttribute('id',`${i}`)
+      item.readCheckInput.setAttribute('id',`${i}`)
+      item.readOrNot.setAttribute('for',`${i}`)
+    })
+  }
 }
-readInputs.forEach(check => check.addEventListener('change', handleCheckboxChange))
-deleteButtons.forEach(remButton => remButton.addEventListener('click', deleteCard))
+gridContainer.addEventListener('change', handleCheckboxChange)
+gridContainer.addEventListener('click', deleteCard)
+
+form.addEventListener('submit',(event)=>{
+  event.preventDefault()
+  Library.push(new Book(titleS.value,authorS.value,pagesS.value,readQuestion.checked ? true : false))
+  overlay.classList.remove('visible')
+  modal.classList.remove('shown')
+})
+makeBookButton.addEventListener('click',()=>{
+  modal.classList.add('shown')
+  overlay.classList.add('visible')
+})
+overlay.addEventListener('click',()=>{
+  overlay.classList.remove('visible')
+  modal.classList.remove('shown')
+})
+closeFormButton.addEventListener('click',()=>{
+  overlay.classList.remove('visible')
+  modal.classList.remove('shown')
+})
 })
