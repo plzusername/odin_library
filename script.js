@@ -12,7 +12,14 @@ let authorS=document.getElementById('Author')
 let pagesS=document.getElementById('page-count')
 let readQuestion=document.querySelector('.read-or-not')
 let modal_title=document.querySelector('.modal-title')
-// let form_label=document.querySelector('.form-label')
+function removeForm(){
+  overlay.classList.remove('visible')
+  modal.classList.remove('shown')
+}
+function showForm(){
+  overlay.classList.add('visible')
+  modal.classList.add('shown')
+}
 function Book(title,author,pages,read){
   this.title=title
   this.author=author
@@ -89,8 +96,7 @@ function Book(title,author,pages,read){
     else{
       readQuestion.removeAttribute('checked')
     }
-    modal.classList.add('shown')
-    overlay.classList.add('visible')  
+    showForm()
   }
   this.changeReadStatus()
 
@@ -130,6 +136,8 @@ function deleteCard(event){
 gridContainer.addEventListener('change', handleCheckboxChange)
 gridContainer.addEventListener('click', deleteCard)
 gridContainer.addEventListener('click', editCard)
+gridContainer.addEventListener('dblclick', ()=>{
+})
 form.addEventListener('submit',(event)=>{
   event.preventDefault()
   if(modal_title.textContent=='Add book to library') Library.push(new Book(titleS.value,authorS.value,pagesS.value,readQuestion.checked ? true : false))
@@ -149,8 +157,7 @@ form.addEventListener('submit',(event)=>{
     // book.author=authorS.value
     // book.pages=pagesE.textContent
   }
-  overlay.classList.remove('visible')
-  modal.classList.remove('shown')
+  removeForm()
 })
 makeBookButton.addEventListener('click',()=>{
   modal_title.textContent=`Add book to library`
@@ -158,15 +165,14 @@ makeBookButton.addEventListener('click',()=>{
   authorS.value=''
   pagesS.value=null
   readQuestion.removeAttribute('checked')
-  modal.classList.add('shown')
-  overlay.classList.add('visible')
+  showForm()
 })
 overlay.addEventListener('click',()=>{
-  overlay.classList.remove('visible')
-  modal.classList.remove('shown')
+  removeForm()
 })
 closeFormButton.addEventListener('click',()=>{
-  overlay.classList.remove('visible')
-  modal.classList.remove('shown')
+  removeForm()
 })
+document.addEventListener("keydown", (event) =>{if  (event.keyCode === 27 ) removeForm()})
+
 })
