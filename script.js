@@ -10,8 +10,9 @@ let form=document.querySelector('form')
 let titleS=document.getElementById('title')
 let authorS=document.getElementById('Author')
 let pagesS=document.getElementById('page-count')
-let readQuestion=document.getElementById('read-or-not')
-
+let readQuestion=document.querySelector('.read-or-not')
+let modal_title=document.querySelector('.modal-title')
+// let form_label=document.querySelector('.form-label')
 function Book(title,author,pages,read){
   this.title=title
   this.author=author
@@ -37,6 +38,7 @@ function Book(title,author,pages,read){
   this.deleteIcon.classList.add('fa-solid', 'fa-trash');
   this.editIcon=document.createElement('i');
   this.editIcon.classList.add('fa-pen-to-square', 'fa-solid')
+  this.editIcon.setAttribute('id', `${this.id}`)
   
   this.titleEtext=document.createTextNode(`${title}`)
   this.authorEtext=document.createTextNode(`${author}`)
@@ -74,8 +76,21 @@ function Book(title,author,pages,read){
   this.deleteBook = function () {
     this.card.remove()
   }
-  this.addNewBook=function(){
-
+  this.editBook = function () {
+    modal_title.textContent=`Edit Book #${this.id + 1}`
+    titleS.value=`${this.titleE.textContent}`
+    authorS.value=`${this.authorE.textContent}`
+    pagesS.value=`${+this.pagesE.textContent.split(' ')[0]}`
+    readQuestion.setAttribute('id',this.id)
+    // form_label.setAttribute('for',this.id)
+    if(this.readCheckInput.checked){
+      readQuestion.setAttribute('checked','anythinglol')
+    }
+    else{
+      readQuestion.removeAttribute('checked')
+    }
+    modal.classList.add('shown')
+    overlay.classList.add('visible')  
   }
   this.changeReadStatus()
 
@@ -90,6 +105,13 @@ function handleCheckboxChange(event) {
   const book = Library.find(book => book.id === parseInt(checkbox.id))
   book.changeReadStatus()
 }
+function editCard(event){
+  const editButton = event.target
+  if (editButton.classList.contains('fa-pen-to-square')){
+    const book = Library.find(book => book.id === parseInt(editButton.id))
+    book.editBook()
+  }
+}
 function deleteCard(event){
   const deleteButton = event.target
   if (deleteButton.classList.contains('fa-trash')){
@@ -99,6 +121,7 @@ function deleteCard(event){
     Library.forEach((item, i)=>{
       item.id=i
       item.deleteIcon.setAttribute('id',`${i}`)
+      item.editIcon.setAttribute('id',`${i}`)
       item.readCheckInput.setAttribute('id',`${i}`)
       item.readOrNot.setAttribute('for',`${i}`)
     })
@@ -106,14 +129,35 @@ function deleteCard(event){
 }
 gridContainer.addEventListener('change', handleCheckboxChange)
 gridContainer.addEventListener('click', deleteCard)
-
+gridContainer.addEventListener('click', editCard)
 form.addEventListener('submit',(event)=>{
   event.preventDefault()
-  Library.push(new Book(titleS.value,authorS.value,pagesS.value,readQuestion.checked ? true : false))
+  if(modal_title.textContent=='Add book to library') Library.push(new Book(titleS.value,authorS.value,pagesS.value,readQuestion.checked ? true : false))
+  else{
+    const book = Library.find(book => book.id === parseInt(readQuestion.id))
+    book.titleE.textContent=titleS.value
+    book.authorE.textContent=authorS.value
+    book.pagesE.textContent=pagesS.value
+    if(readQuestion.checked){
+      book.readCheckInput.setAttribute('checked','f')
+    }
+    else{
+      book.readCheckInput.removeAttribute('checked')
+    }
+    book.changeReadStatus()
+    // book.title=titleS.value
+    // book.author=authorS.value
+    // book.pages=pagesE.textContent
+  }
   overlay.classList.remove('visible')
   modal.classList.remove('shown')
 })
 makeBookButton.addEventListener('click',()=>{
+  modal_title.textContent=`Add book to library`
+  titleS.value=''
+  authorS.value=''
+  pagesS.value=null
+  readQuestion.removeAttribute('checked')
   modal.classList.add('shown')
   overlay.classList.add('visible')
 })

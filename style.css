@@ -162,7 +162,7 @@ label{
 .modal-container{
     opacity: 0;
     transition: 150ms ease-in-out;
-    position: absolute;
+    position: fixed;
     width:450px;
     left: 50%;
     top: 50%;
