@@ -1,7 +1,6 @@
 document.addEventListener(('DOMContentLoaded'),  ()=> {
 let gridContainer=document.querySelector('.book-grid')
 let Library=[]
-let removeButton=document.querySelector('.card')
 let makeBookButton=document.querySelector('.add-book')
 let modal=document.querySelector('.modal-container')
 let closeFormButton=document.querySelector('.fa-xmark')
@@ -71,9 +70,8 @@ function Book(title,author,pages,read){
   this.card.classList.add('card')
   this.cardFooter.classList.add('cardFooter')
   this.readContainer.classList.add('readContainer')
-  if (read){
-    this.readCheckInput.setAttribute('checked', `${this.read}`);
-  }
+  if (read) this.readCheckInput.setAttribute('checked', `${this.read}`);
+  
 
   gridContainer.appendChild(this.card)
 
@@ -89,7 +87,6 @@ function Book(title,author,pages,read){
     authorS.value=`${this.authorE.textContent}`
     pagesS.value=`${+this.pagesE.textContent.split(' ')[0]}`
     readQuestion.setAttribute('id',this.id)
-    // form_label.setAttribute('for',this.id)
     if(this.readCheckInput.checked){
       readQuestion.setAttribute('checked','anythinglol')
     }
@@ -98,16 +95,16 @@ function Book(title,author,pages,read){
     }
     showForm()
   }
+  this.card.addEventListener('dblclick',()=>{
+    this.editBook()
+  })
   this.changeReadStatus()
 
   return this
 }
-for (let i=0;i<25;i++){
-  Library.push(new Book('How to make work', "sausage", i, i%2==0 ))
-}
+
 function handleCheckboxChange(event) {
   const checkbox = event.target
-  console.log(checkbox)
   const book = Library.find(book => book.id === parseInt(checkbox.id))
   book.changeReadStatus()
 }
@@ -153,9 +150,6 @@ form.addEventListener('submit',(event)=>{
       book.readCheckInput.removeAttribute('checked')
     }
     book.changeReadStatus()
-    // book.title=titleS.value
-    // book.author=authorS.value
-    // book.pages=pagesE.textContent
   }
   removeForm()
 })
@@ -167,12 +161,10 @@ makeBookButton.addEventListener('click',()=>{
   readQuestion.removeAttribute('checked')
   showForm()
 })
-overlay.addEventListener('click',()=>{
-  removeForm()
-})
-closeFormButton.addEventListener('click',()=>{
-  removeForm()
-})
+overlay.addEventListener('click',()=>removeForm())
+
+closeFormButton.addEventListener('click',()=>removeForm())
+
 document.addEventListener("keydown", (event) =>{if  (event.keyCode === 27 ) removeForm()})
 
 })
