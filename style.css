@@ -37,7 +37,7 @@ body{
     color: white;
 }
 button{
-    padding:5px 22px;
+    padding:8px 23px;
     appearance: none;
     font-weight: bold;
     border: none;
@@ -172,6 +172,9 @@ label{
     display: flex;
     flex-direction: column;
 }
+.modal-header p{
+    margin: 13px 0;
+}
 .shown{
     opacity: 1;
     z-index: 3;
@@ -179,13 +182,17 @@ label{
 .modal-container label{
     display: block;
 }
+.modal-title{
+    font-weight: bold;
+    font-size: 16px;
+}
 .modal-header{
     color: #faf5ff;
     display: flex;
     background-color:var(--950) ;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 0 10px;
     border-radius:8px 8px 0 0 ;
 }
 .form{
@@ -209,9 +216,13 @@ form input[type='number']{
     width:24%;
 }
 form button{
-    width: 40%;
-    padding: 8px 15px;
+    /* width: 30%; */
+    padding: 10px 16px;
     margin-left: auto;
+    font-size: 18px;
+}
+form input[type='checkbox']{
+    margin-right: 5px;
 }
 p{
     margin: 18px 0;

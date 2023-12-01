@@ -16,6 +16,7 @@ function removeForm(){
   modal.classList.remove('shown')
 }
 function showForm(){
+  titleS.focus()
   overlay.classList.add('visible')
   modal.classList.add('shown')
 }
@@ -166,5 +167,7 @@ overlay.addEventListener('click',()=>removeForm())
 closeFormButton.addEventListener('click',()=>removeForm())
 
 document.addEventListener("keydown", (event) =>{if  (event.keyCode === 27 ) removeForm()})
-
+for (let i=0;i<24;i++){
+  Library.push(new Book(8,8,8,true))
+}
 })
